@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AutoFixture;
 using Shouldly;
 using Xunit;
@@ -51,6 +52,28 @@ namespace TddWorkShop.StringCalculator.UnitTests
 
             // assert
             result.ShouldBe(number1 + number2);
+        }
+
+        [Fact]
+        public void Add_PassMultipleNumbers_ReturnsSumOfThem()
+        {
+            //Arrange
+            var fixture = new Fixture();
+            int numberOfElements = fixture.Create<int>();
+            var elements = fixture.CreateMany<int>(numberOfElements);
+            string input = string.Join(',', elements);
+            var sut = new StringCalculatorApp();
+            int expectedResult = elements.Sum();
+
+
+
+            //Act
+            var result = sut.Add(input);
+
+
+
+            //Assert
+            result.ShouldBe(expectedResult);
         }
     }
 }
